@@ -11,8 +11,15 @@ class ArticlesController < ApplicationController
     end
 
     def create
-
+      @article = Article.new set_params
+      if @article.save
+        redirect_to articles_path
+      else
+        render 'new'
+      end
     end
+
+  
 
     def show
     end
@@ -21,9 +28,16 @@ class ArticlesController < ApplicationController
     end
 
     def update
+      if @article.update set_params
+        redirect_to article_path(@article)
+      else
+        render 'edit'
+      end 
     end
 
     def destroy
+      @article.destroy
+      redirect_to articles_path
     end    
 
     private
